@@ -16,8 +16,8 @@ class ImageNet100Dataset(Dataset):
         split: str = "train",
         transform: Optional[transforms.Compose] = None,
         split_number: Optional[int] = None,
-        train_reduction_factor: int = 10,  # Keep 1/N of training images
-        val_reduction_factor: int = 3,     # Keep 1/N of validation images
+        train_reduction_factor: int = 10,  # Keep 1/10 of training images
+        val_reduction_factor: int = 10     # Keep 1/10 of validation images
     ):
         """
         Args:
@@ -27,7 +27,7 @@ class ImageNet100Dataset(Dataset):
             split_number: For training, which split to use (1-4). For validation, ignored.
                         If None, uses all splits.
             train_reduction_factor: Keep 1/N of training images (default: 10)
-            val_reduction_factor: Keep 1/N of validation images (default: 3)
+            val_reduction_factor: Keep 1/N of validation images (default: 10)
         """
         # Convert to absolute path
         self.root_dir = Path(os.path.abspath(root_dir))
@@ -104,16 +104,13 @@ class ImageNet100Dataset(Dataset):
             
             # Apply reduction factor with fixed seed for reproducibility
             if self.split == "train":
-                # For training, take evenly spaced images
-                # This ensures better coverage of the dataset
-                num_images = len(image_files)
-                step = self.train_reduction_factor
-                image_files = image_files[::step]  # Take every Nth image
+                # For training, take first N images after sorting
+                num_images = len(image_files) // self.train_reduction_factor
+                image_files = image_files[:num_images]
             else:
-                # For validation, take evenly spaced images
-                num_images = len(image_files)
-                step = self.val_reduction_factor
-                image_files = image_files[::step]  # Take every Nth image
+                # For validation, take first N images after sorting
+                num_images = len(image_files) // self.val_reduction_factor
+                image_files = image_files[:num_images]
             
             # Add selected images and their labels
             for img_name in image_files:
@@ -142,7 +139,7 @@ class ImageNet100DataModule(pl.LightningDataModule):
     def __init__(
         self,
         data_dir: str,
-        batch_size: int = 32,  # Changed back to 32 for reduced dataset
+        batch_size: int = 32,
         num_workers: int = 4,
         image_size: int = 224,
         augmentations: Optional[Dict[str, Any]] = None,
@@ -150,7 +147,7 @@ class ImageNet100DataModule(pl.LightningDataModule):
         prefetch_factor: int = 2,
         pin_memory: bool = True,
         train_reduction_factor: int = 10,  # Keep 1/10 of training images
-        val_reduction_factor: int = 3      # Keep 1/3 of validation images
+        val_reduction_factor: int = 10     # Keep 1/10 of validation images
     ):
         super().__init__()
         self.data_dir = data_dir

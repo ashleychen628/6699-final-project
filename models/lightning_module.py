@@ -382,6 +382,7 @@ class ActivationExperiment(pl.LightningModule):
         # Update best validation accuracy
         if acc > self.best_val_acc:
             self.best_val_acc = acc
+            print(f"\nNew best validation accuracy: {acc.item():.4f}")
 
     def on_train_epoch_start(self) -> None:
         self.epoch_start_time = time.time()
@@ -579,4 +580,14 @@ class ActivationExperiment(pl.LightningModule):
                 "scheduler": scheduler,
                 "interval": "epoch"
             }
-        } 
+        }
+
+    def on_validation_epoch_end(self) -> None:
+        # Print validation epoch summary
+        if self.verbose:
+            print("\nValidation Epoch Summary:")
+            print(f"Validation Loss: {self.val_losses[-1]:.4f}")
+            print(f"Validation Accuracy: {self.val_accs[-1]:.4f}")
+            if self.hparams.track_top5:
+                print(f"Validation Top-5 Accuracy: {self.val_top5_accs[-1]:.4f}")
+            print("-" * 50) 
