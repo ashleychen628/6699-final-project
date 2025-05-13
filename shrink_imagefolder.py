@@ -6,7 +6,7 @@ from tqdm import tqdm
 def shrink_imagefolder_consistent(
     full_train_dir, full_val_dir,
     mini_train_dir, mini_val_dir,
-    num_classes=20, train_imgs_per_class=250, val_imgs_per_class=50
+    num_classes, train_imgs_per_class, val_imgs_per_class
 ):
     # Step 1: Get shared subset of class names
     all_classes = sorted(os.listdir(full_train_dir))
@@ -44,11 +44,11 @@ def shrink_imagefolder_consistent(
 full_train_dir = "data/imagenet-100-imagefolder/train"
 full_val_dir   = "data/imagenet-100-imagefolder/val"
 
-mini_train_dir = "data/imagenet-mini2/train"
-mini_val_dir   = "data/imagenet-mini2/val"
+mini_train_dir = "data/imagenet-1300-10/train"
+mini_val_dir   = "data/imagenet-1300-10/val"
 
 shrink_imagefolder_consistent(
     full_train_dir, full_val_dir,
     mini_train_dir, mini_val_dir,
-    num_classes=20, train_imgs_per_class=150, val_imgs_per_class=50
+    num_classes=10, train_imgs_per_class=1300, val_imgs_per_class=50
 )

@@ -39,7 +39,7 @@ class InvertedResidual(nn.Module):
             return self.block(x)
 
 class MobileNetV2(nn.Module):
-    def __init__(self, activation, num_classes=20):
+    def __init__(self, activation, num_classes=10):
         super().__init__()
         assert isinstance(activation, nn.Module), "Activation must be an nn.Module instance"
         self.activation = activation  # no deepcopy here
