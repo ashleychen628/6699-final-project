@@ -1,5 +1,8 @@
 env
 .ipynb_checkpoints
 __pycache__
-data
+data/imagenet-100
+data/imagenet-100-imagefolder
+data/imagenet-1300
+data/imagenet-mini2
 outputs
