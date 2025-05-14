@@ -1,6 +1,5 @@
 # Activation Function Comparison on CIFAR-10 and ImageNet-100
-## Group Members: Danyao Chen dc3861 			   Skylar Yin yy3522 			  Dasheng Sun ds4348
-
+#### Group Members: Danyao Chen,    Skylar Yin, 	  Dasheng Sun 
 This project systematically compares several activation functions—ReLU, Leaky ReLU, ELU, Tanh, GELU, Swish (fixed β), and Swish (trainable β)—across multiple convolutional architectures including MobileNetV2, ResNet-18, DenseNet-121, WideResNet, and a custom CNN. Experiments are conducted on both the CIFAR-10 and ImageNet-100 datasets using PyTorch, with full support for reproducible training, evaluation, and visualization.
 
 ## Features
