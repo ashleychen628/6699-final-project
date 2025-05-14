@@ -4,7 +4,7 @@ import torch.nn.functional as F
 from copy import deepcopy
 
 class CustomCNN(nn.Module):
-    def __init__(self, activation, num_classes=100):
+    def __init__(self, activation, num_classes=10):
         super().__init__()
         self.act = deepcopy(activation)
 

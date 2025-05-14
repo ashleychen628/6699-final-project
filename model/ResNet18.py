@@ -27,7 +27,7 @@ class BasicBlock(nn.Module):
         return out
 
 class ResNet18(nn.Module):
-    def __init__(self, activation, num_classes=20):
+    def __init__(self, activation, num_classes=10):
         super().__init__()
         self.act = activation
         self.in_planes = 64

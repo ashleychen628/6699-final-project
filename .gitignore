@@ -6,3 +6,11 @@ data/imagenet-100-imagefolder
 data/imagenet-1300
 data/imagenet-mini2
 outputs
+checkpoints
+model/ELU
+model/LeakyReLU
+model/ReLU 
+model/Sigmoid
+model/Swish_fixed
+model/Swish_trainable
+model/tanh
